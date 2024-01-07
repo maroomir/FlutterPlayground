@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 // 1-2. 탭 화면 (Stateless -> Stateful)
 class MainPage extends StatelessWidget {
   // 1-2. 탭 화면 (_selectedTabIndex 변수 옮김)
+  int _selectedTabIndex = 0;
 
   // 1-2. 탭 화면 (탭 인덱스 설정)
 
@@ -31,7 +32,7 @@ class MainPage extends StatelessWidget {
           */
           PopupMenuButton<int>(
               icon: Icon(Icons.sort),
-              onSelected: (value) {
+              onSelected: ((value) {
                 if (value == 0) {
                   // 디버깅을 위함. 아이콘을 클릭할 시 cmd 에 글씨 출력됨.
                   print("예매율순");
@@ -40,7 +41,7 @@ class MainPage extends StatelessWidget {
                 } else {
                   print("최신순");
                 }
-              },
+              }),
               itemBuilder: (value) {
                 return [
                   PopupMenuItem(child: Text("예매율순"), value: 0),
@@ -54,6 +55,19 @@ class MainPage extends StatelessWidget {
       // body: UI 의 main contents
       body: const Center(child: Text("Hello Flutter")),
       // 1-2. 탭 화면 (bottomNavigationBar 추가)
+      // onTap: 탭을 클릭할 시 실행 (setState 를 통해 UI 활성화 변경)
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.view_list), label: 'List'),
+          BottomNavigationBarItem(icon: Icon(Icons.grid_on), label: 'Grid'),
+        ],
+        currentIndex: _selectedTabIndex,
+        onTap: ((index) {
+          // 1-2. 탭 화면 (setState() 설정)
+          _selectedTabIndex = index;
+          print("$_selectedTabIndex Tab Clicked");
+        }),
+      ),
     );
   }
 }
