@@ -61,6 +61,13 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # 1-3. 리스트 화면 (UI 변경 제안 대처)
+  assets:
+    - assets/ic_allages.png
+    - assets/ic_12.png
+    - assets/ic_15.png
+    - assets/ic_19.png
+
   # To add assets to your application, add an assets section, like this:
   # 1-3. 리스트 화면 (관람 등급 이미지 버튼 함수 생성)
   # assets:

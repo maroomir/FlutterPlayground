@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 // 1-3. 리스트 화면 (임포트)
@@ -7,19 +9,22 @@ class ListPage extends StatelessWidget {
     // 1-3. 리스트 화면 (동적 데이터 추가)
 
     // 1-3. 리스트 화면 (초기 리스트 구현)
-    // children: ListView 에 들어가게 될 List (Widget 집합)
-    return ListView(
-      // 1
-      children: <Widget>[
-        // 2
-        _buildDummyItem(),
-        _buildDummyItem(),
-        _buildDummyItem(),
-        _buildDummyItem(),
-        _buildDummyItem(),
-        _buildDummyItem()
-      ],
-    );
+    /*
+    - ListView.children: ListView 에 들어가게 될 List (Widget 집합)
+    - ListView.seperated
+      1) seperatorBuilder: 구분선 생성
+      2) itemCount: 리스트 아이템 전체 개수
+      3) itemBuilder: 리스트 아이템(Widget)을 생성해주는 함수.
+    */
+    return ListView.separated(
+        separatorBuilder: ((_, index) => Divider(color: Colors.grey)),
+        // 1-3. 리스트 화면 (동적 테이터 호출2)
+        itemCount: 8,
+        itemBuilder: ((context, index) {
+          // 1-3. 리스트 화면 (동적 데이터 호출3)
+          return _buildDummyItem();
+          // 1-5. 상세 화면 연결 (InkWell 사용)
+        }));
   }
 
   // 1-3. 리스트 화면 (고정 더미 데이터) - 1
@@ -53,7 +58,7 @@ class ListPage extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         SizedBox(width: 8),
                         // 1-3. 리스트 화면 (UI 변경 제안 대처)
-                        Text("12"),
+                        _buildGradeImage(12),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -72,6 +77,21 @@ class ListPage extends StatelessWidget {
                 ))
           ]),
     );
+  }
+
+  // 1-3. 리스트 화면 (관람 등급 이미지 버튼 함수 생성)
+  Widget _buildGradeImage(int grade) {
+    switch (grade) {
+      case 12:
+        // 주의: pubspec.yaml 에 들어가있는 asset 만 들어갈 수 있음.
+        return Image.asset("assets/ic_12.png");
+      case 15:
+        return Image.asset("assets/ic_15.png");
+      case 19:
+        return Image.asset("assets/ic_19.png");
+      default:
+        return Image.asset("assets/ic_allages.png");
+    }
   }
 }
 
